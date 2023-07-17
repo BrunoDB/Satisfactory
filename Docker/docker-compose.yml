@@ -1,0 +1,30 @@
+version: '3'
+services:
+  satisfactory-server:
+    container_name: 'satisfactory-server'
+    hostname: 'satisfactory-server'
+    image: 'satisfactory:1.0'
+    ports:
+      - '7777:7777/udp'
+      - '15000:15000/udp'
+      - '15777:15777/udp'
+    volumes:
+      - '/opt/satisfactory:/config'
+    environment:
+      - AUTOPAUSE=false
+      - MAXPLAYERS=4
+      - PGID=1000
+      - PUID=1000
+      - STEAMBETA=true
+      - TIMEOUT=6000.0
+      - MAXOBJECTS=100000000
+      - MAXTICKRATE=1200
+      - AUTOSAVEINTERVAL=900
+    restart: unless-stopped
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+        reservations:
+          memory: 1G
